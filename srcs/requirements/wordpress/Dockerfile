@@ -14,6 +14,8 @@ RUN unzip latest.zip -d /var/www/html/
 
 RUN rm latest.zip
 
-COPY ./conf/wp-config.php /var/www/html/wordpress/wp-config.php
+COPY ./conf/wp-config.sh /
+
+ENTRYPOINT ["sh","./wp-config.sh" ]
 
 CMD [ "cat", "/var/www/html/wordpress/wp-config.php"]
