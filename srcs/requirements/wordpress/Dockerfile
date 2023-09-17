@@ -18,4 +18,4 @@ COPY ./conf/wp-config.sh /
 
 ENTRYPOINT ["sh","./wp-config.sh" ]
 
-CMD [ "cat", "/var/www/html/wordpress/wp-config.php"]
+CMD ["php-fpm8.2", "-F", "-R"]
