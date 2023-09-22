@@ -1,21 +1,11 @@
-FROM debian:buster
+FROM debian:bookworm
 
-RUN apt-get update
-RUN apt-get install -y php
-RUN apt-get install -y php-fpm
-RUN apt-get install -y php-mysql
-RUN apt-get install -y mariadb-client
-RUN apt-get install -y wget
-RUN apt-get install -y unzip
+RUN apt update && apt install -f -y php8.2-cli php8.2-fpm php8.2-mysql curl  mariadb-client && mkdir -p /run/php/
 
-RUN wget https://wordpress.org/latest.zip
+EXPOSE 9000
 
-RUN unzip latest.zip -d /var/www/html/
+COPY ./conf/wp-config.sh /wp-config.sh
 
-RUN rm latest.zip
-
-COPY ./conf/wp-config.sh /
-
-ENTRYPOINT ["sh","./wp-config.sh" ]
+ENTRYPOINT ["sh","wp-config.sh" ]
 
 CMD ["php-fpm8.2", "-F", "-R"]
