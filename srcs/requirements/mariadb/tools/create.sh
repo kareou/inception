@@ -1,14 +1,5 @@
 #!/bin/sh
 
-# mariadbd --user=mysql --bootstrap "DELETE FROM mysql.user WHERE User='';"
-# echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
-# mariadbd --user=mysql --bootstrap "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};"
-# echo "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-# mariadbd --user=mysql --bootstrap "CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-# mariadbd --user=mysql --bootstrap "ALTER USER root@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
-# mariadbd --user=mysql --bootstrap "FLUSH PRIVILEGES;"
-# mariadbd --user=mysql --bootstrap "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';"
-# mariadbd --user=mysql --bootstrap "FLUSH PRIVILEGES;"
 cat << EOF > /tmp/db.sql
 
 use mysql;

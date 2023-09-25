@@ -8,9 +8,13 @@ services:
       - 443:443
     volumes:
       - wordpress:/var/www/html/wordpress
+      - ./requirements/bonus/website/tools/site:/var/www/html/site
+      - adminer:/var/www/html/adminer
     restart: always
     depends_on:
       - wordpress
+      - adminer
+      - cadvisor
     networks:
       - InceptionNetwork
   mariadb:
@@ -54,7 +58,26 @@ services:
       - mariadb
     networks:
       - InceptionNetwork
-
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    ports:
+      - 8080:8080
+    restart: always
+    volumes:
+      - adminer:/var/www/html/adminer
+    depends_on:
+      - mariadb
+    networks:
+      - InceptionNetwork
+  cadvisor:
+    build: ./requirements/bonus/cadvisor
+    container_name: cadvisor
+    ports:
+      - 8000:8000
+    restart: always
+    networks:
+      - InceptionNetwork
 networks:
   InceptionNetwork:
     driver: bridge
@@ -70,5 +93,8 @@ volumes:
       type: none
       o: bind
       device: /home/mkhairou/data/db
-
-
+  adminer:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mkhairou/data/adminer
