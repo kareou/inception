@@ -1,5 +1,6 @@
 #!/bin/sh
 
+if [ ! -d "/var/lib/mysql/${WP_DB_NAME}" ]; then
 cat << EOF > /tmp/db.sql
 
 use mysql;
@@ -15,5 +16,9 @@ FLUSH PRIVILEGES;
 EOF
 	mariadbd --user=mysql --bootstrap < /tmp/db.sql
     rm -f /tmp/db.sql
+else
+        echo "Database already exists"
+if
+
 
 exec "$@"

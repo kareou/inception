@@ -14,7 +14,7 @@ services:
     depends_on:
       - wordpress
       - adminer
-      - cadvisor
+      - portainer
     networks:
       - InceptionNetwork
   mariadb:
@@ -70,14 +70,17 @@ services:
       - mariadb
     networks:
       - InceptionNetwork
-  cadvisor:
-    build: ./requirements/bonus/cadvisor
-    container_name: cadvisor
+  portainer:
+    build: ./requirements/bonus/portainer
+    container_name: portainer
     ports:
       - 8000:8000
     restart: always
     networks:
       - InceptionNetwork
+    volumes:
+      - portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
 networks:
   InceptionNetwork:
     driver: bridge
@@ -98,3 +101,8 @@ volumes:
       type: none
       o: bind
       device: /home/mkhairou/data/adminer
+  portainer:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mkhairou/data/portainer
