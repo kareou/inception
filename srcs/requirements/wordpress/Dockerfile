@@ -6,6 +6,6 @@ EXPOSE 9000
 
 COPY ./conf/wp-config.sh /wp-config.sh
 
-ENTRYPOINT ["sh","wp-config.sh" ]
+ENTRYPOINT ["sh","wp-config.sh"]
 
 CMD ["php-fpm8.2", "-F", "-R"]

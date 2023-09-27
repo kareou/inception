@@ -1,23 +1,22 @@
 #!/bin/sh
 
 if [ -f "/var/www/html/wordpress/wp-config.php" ]; then
-    echo "WordPress is already installed in this directory."
+    echo "wp-config.php already exists"
     exec "$@"
     exit 0
 fi
 
-if [ ! -d "/usr/local/bin/wp" ]; then
-    cd /tmp
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    chmod +x wp-cli.phar
-    mv wp-cli.phar /usr/local/bin/wp
-fi
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
 
 if [ ! -d "/var/www/html/wordpress" ]; then
         mkdir -p /var/www/html/wordpress
 fi
 
 chmod -R 755 /var/www/html/wordpress
+chown -R www-data:www-data /var/www/html/wordpress
 
 cd /var/www/html/wordpress
 rm -rf /var/www/html/wordpress/*
@@ -30,6 +29,6 @@ wp core install --allow-root --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_US
 
 wp user create --allow-root $WP_USER_ADMIN $WP_EMAIL_ADMIN --role=administrator --user_pass=$WP_PASSWORD_ADMIN
 
-wp user create --allow-root $WP_USER $WP_EMAIL --role=aditor --user_pass=$WP_PASSWORD
+wp user create --allow-root $WP_USER $WP_EMAIL --role=editor --user_pass=$WP_PASSWORD
 
 exec "$@"
