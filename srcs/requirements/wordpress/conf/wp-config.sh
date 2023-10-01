@@ -27,8 +27,8 @@ wp config create --allow-root  --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_
 
 wp core install --allow-root --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_USER_ADMIN --admin_password=$WP_PASSWORD_ADMIN --admin_email=$WP_EMAIL_ADMIN
 
-wp user create --allow-root $WP_USER_ADMIN $WP_EMAIL_ADMIN --role=administrator --user_pass=$WP_PASSWORD_ADMIN
+wp user create --allow-root $WP_USER_ADMIN $WP_EMAIL_ADMIN --role=administrator --user_pass=$WP_PASSWORD_ADMIN --path=/var/www/html/wordpress
 
-wp user create --allow-root $WP_USER $WP_EMAIL --role=editor --user_pass=$WP_PASSWORD
+wp user create --allow-root $WP_USER $WP_EMAIL --role=editor --user_pass=$WP_PASSWORD --path=/var/www/html/wordpress
 
 exec "$@"

@@ -6,6 +6,7 @@ services:
     container_name: nginx
     ports:
       - 443:443
+      - 80:80
     volumes:
       - wordpress:/var/www/html/wordpress
       - ./requirements/bonus/website/tools/site:/var/www/html/site
@@ -73,8 +74,6 @@ services:
   portainer:
     build: ./requirements/bonus/portainer
     container_name: portainer
-    ports:
-      - 8000:8000
     restart: always
     networks:
       - InceptionNetwork
